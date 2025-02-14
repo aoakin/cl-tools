@@ -1,0 +1,81 @@
+#!/bin/bash
+
+function cl-tools(){
+    declare -A scripts
+
+    scripts["gridhead"]="General: login to GS gridhead"
+    scripts["load_modules"]="General: load R (opt: --r) or Python (opt: --py) modules"
+    # scripts["mv_old_qsub"]="General: move qsubs in home folder to ~/old_qsub/"
+    scripts["mystat"]="General: qstat for user"
+    scripts["ndir"]="General: navigate to favorite directory, found in ~/.navdir"
+
+    NEWLINE=$'\n'
+
+    echo "cl-tools: Cluster tools for Ayomikun"
+
+    for file in "${!scripts[@]}"
+    do
+        echo "======"
+        echo "$file"
+        echo "-"
+        echo "${scripts[$file]}${NEWLINE}"
+    done
+}
+
+function load_modules(){
+
+    # Load modules
+    module load modules modules-init modules-gs
+    
+    # Display usage
+    usage() {
+        echo "Usage: $0 [--r | --py]"
+        exit 0
+    }
+
+    # Check for args
+    if [ $# -eq 0 ]; then
+        usage
+    fi
+
+    # Parse args
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            --r)
+                module load R/4.4.1
+                shift
+                ;;
+            --py)
+                module load python/3.12.1
+                module load matplotlib/3.8.4
+                module load pandas/2.2.2
+                module load jupyter/7.1.3
+                module load tensorflow/2.16.1
+                module load scikit_learn/1.4.2
+                module load cudnn/8.9.7.29_11.x
+                shift
+                ;;
+            *)
+                usage
+                ;;
+        esac
+    done
+}
+
+function mystat(){
+    qstat -u $USER
+    remaining_jobs=$(qstat -u $USER | wc -l)
+    if [ "$remaining_jobs" -gt 0 ]; then
+      printf "Jobs remaining: %d\n" $remaining_jobs
+    else
+      echo "No jobs running"
+    fi
+}
+
+function ndir(){
+    echo 'Navigating to favorite folder!'
+    read -r FavoriteRepo< ~/.navdir
+    cd ~/
+    cd "$FavoriteRepo"
+}
+
