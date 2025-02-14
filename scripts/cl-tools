@@ -3,7 +3,7 @@
 function cl-tools(){
     declare -A scripts
 
-    scripts["gridhead"]="General: login to GS gridhead"
+    # scripts["gridhead"]="General: login to GS gridhead"
     scripts["load_modules"]="General: load R (opt: --r) or Python (opt: --py) modules"
     # scripts["mv_old_qsub"]="General: move qsubs in home folder to ~/old_qsub/"
     scripts["mystat"]="General: qstat for user"

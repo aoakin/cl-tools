@@ -1,7 +1,7 @@
 Ayomikun's cluster tools for UW GS server
 
 IMPORTANT (you'll only do this once):
-1) Put the cl-tools repo in your HOME directory '~/'
+1) Clone the cl-tools repo in your HOME directory '~/'
 2) Run `bash setup.sh`
 3) Run `source ~/.bash_profile` | why? this gets your bash to restart; you will only do this the first time after setting up
 4) Get going with having a slightly more convenient life on the cluster!
