@@ -75,6 +75,7 @@ function mystat(){
 function ndir(){
     echo 'Navigating to favorite folder!'
     read -r FavoriteRepo< ~/.navdir
+    FavoriteRepo="${FavoriteRepo/#\~/$HOME}"
     cd ~/
     cd "$FavoriteRepo"
 }
