@@ -8,6 +8,7 @@ function cl-tools(){
     # scripts["mv_old_qsub"]="General: move qsubs in home folder to ~/old_qsub/"
     scripts["mystat"]="General: qstat for user"
     scripts["ndir"]="General: navigate to favorite directory, found in ~/.navdir"
+    scripts["clockit"]="General: print tree of directory and rescursively list all items"
 
     NEWLINE=$'\n'
 
@@ -64,7 +65,7 @@ function load_modules(){
 
 function mystat(){
     qstat -u $USER
-    remaining_jobs=$(qstat -u $USER | wc -l)
+    remaining_jobs=$(qstat -u $USER | tail -n +3 | wc -l)
     if [ "$remaining_jobs" -gt 0 ]; then
       printf "Jobs remaining: %d\n" $remaining_jobs
     else
@@ -80,3 +81,6 @@ function ndir(){
     cd "$FavoriteRepo"
 }
 
+function clockit(){
+    tree -a
+}
